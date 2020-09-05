@@ -9,8 +9,8 @@ module VimeoMe2
         @video = video
         @ticket = create_video
         start_upload
-        video = change_name_and_get_video(name)
-        return video
+        video_data = get_video_details(name)
+        return video_data
       end
 
       # Upload a video to the authenticated account
@@ -29,10 +29,10 @@ module VimeoMe2
 
       private
 
-        def change_name_and_get_video name = nil
+        def get_video_details(name = nil)
           video = VimeoMe2::Video.new(@token, @ticket['uri'])
-          video.name = name || get_file_name
-          video.update
+          video_details = video.video
+          video_details
         end
 
         def get_file_name
